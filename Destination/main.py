@@ -23,7 +23,7 @@ def publish_to_destination(row: dict):
     # write code to publish your data to any destination
     # use any Python library you like!
 
-    print(row)
+    print(f"This is one row of your data\nTransform it here or publish it to an external data store\n{row}")
 
 sdf = sdf.apply(publish_to_destination)
 
