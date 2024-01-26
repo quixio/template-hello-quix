@@ -8,6 +8,23 @@ input_topic = app.topic(os.environ["input"], value_deserializer=JSONDeserializer
 
 sdf = app.dataframe(input_topic)
 
+                                                      
+                                                      
+print("    ,----..                      ,---, ,--,     ,--,  ")
+print("   /   /   \             ,--, ,`--.' | |'. \   / .`|  ")
+print("  /   .     :          ,'_ /| |   :  : ; \ `\ /' / ;  ")
+print(" .   /   ;.  \    .--. |  | : :   |  ' `. \  /  / .'  ")
+print(".   ;   /  ` ;  ,'_ /| :  . | |   :  |  \  \/  / ./   ")
+print(";   |  ; \ ; |  |  ' | |  . . '   '  ;   \  \.'  /    ")
+print("|   :  | ; | '  |  | ' |  | | |   |  |    \  ;  ;     ")
+print(".   |  ' ' ' :  :  | | :  ' ; '   :  ;   / \  \  \    ")
+print("'   ;  \; /  |  |  ; ' |  | ' |   |  '  ;  /\  \  \   ")
+print(" \   \  ',  . \ :  | : ;  ; | '   :  |./__;  \  ;  \  ")
+print("  ;   :      ; |'  :  `--'   \;   |.' |   : / \  \  ; ")
+print("   \   \ .'`--\" :  ,      .-./'---'   ;   |/   \  ' | ")
+print("    `---`        `--`----'            `---'     `--`  ")
+                                                      
+
 print("Publish this data to your destination\nWrite any Python code you need and use any Python library you fancy!")
 
 def publish_to_destination(row: dict):
