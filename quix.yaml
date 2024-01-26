@@ -41,6 +41,21 @@ deployments:
         description: Name of the output topic to write to.
         required: false
         value: counted-names
+  - name: Destination
+    application: Destination
+    deploymentType: Service
+    version: 2d79a86a23a67b0b58bc1be58b1f8e6a5dd6bad1
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    desiredStatus: Running
+    variables:
+      - name: input
+        inputType: InputTopic
+        description: Name of the input topic to listen to.
+        required: false
+        value: counted-names
 
 # This section describes the Topics of the data pipeline
 topics:
