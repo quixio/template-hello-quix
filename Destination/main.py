@@ -8,6 +8,10 @@ input_topic = app.topic(os.environ["input"], value_deserializer=JSONDeserializer
 
 sdf = app.dataframe(input_topic)
 
+print(" ")
+print(" ")
+print(" ")
+print(" ")
 print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~")
 print("    ,----..                      ,---, ,--,     ,--,  ")
 print("   /   /   \             ,--, ,`--.' | |'. \   / .`|  ")
@@ -25,6 +29,10 @@ print("    `---`        `--`----'            `---'     `--`  ")
 print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~")
 print("Publish this data to your destination\nWrite any Python code you need and use any Python library you fancy!")
 print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~")
+print(" ")
+print(" ")
+print(" ")
+print(" ")
 
 
 def publish_to_destination(row: dict):
