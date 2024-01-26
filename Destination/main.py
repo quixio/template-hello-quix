@@ -10,7 +10,8 @@ output_topic = app.topic(os.environ["output"], value_serializer=QuixTimeseriesSe
 
 sdf = app.dataframe(input_topic)
 
-# Here put transformation logic.
+# write code to publish your data to any destination
+# use any Python library you like!
 
 sdf = sdf.update(lambda row: print(row))
 
