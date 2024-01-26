@@ -24,7 +24,7 @@ deployments:
   - name: Counter
     application: Counter
     deploymentType: Service
-    version: d2d0f9d13eee8a3c9488aa5cfc8f6e1197ba6e13
+    version: aa1a9f499a29a9c9657698644735d9ce4289e8e1
     resources:
       cpu: 200
       memory: 500
