@@ -15,8 +15,6 @@ def publish_to_destination(row: dict):
     # use any Python library you like!
 
     print(row)
-    
-    pass
 
 sdf = sdf.apply(publish_to_destination)
 
