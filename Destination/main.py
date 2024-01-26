@@ -45,5 +45,3 @@ sdf = sdf.apply(publish_to_destination)
 
 if __name__ == "__main__":
     app.run(sdf)
-
-    print("WOW")
