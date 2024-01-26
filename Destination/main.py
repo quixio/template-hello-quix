@@ -2,7 +2,7 @@ import os
 from quixstreams import Application
 from quixstreams.models.serializers.quix import JSONDeserializer
 
-app = Application.Quix("transformation-v1", auto_offset_reset="latest")
+app = Application.Quix("destination-v1", auto_offset_reset="latest")
 
 input_topic = app.topic(os.environ["input"], value_deserializer=JSONDeserializer())
 
