@@ -14,7 +14,7 @@ def count_names(row: dict, state: State):
 
     # get the value from the name column for this row
     # so we can see if it's in state
-    name = row["name"]
+    name = row["Name"]
 
     # check state, if the name is already there then retrieve the count
     # default to 0 if the name wasn't in state
