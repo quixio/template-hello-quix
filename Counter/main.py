@@ -23,13 +23,19 @@ def count_names(row: dict, state: State):
     # add one to the name count
     name_count += 1
 
+    # add the name count to the row data
+    row["count"] = name_count
+
     # store the new count in state
     state.set(name, name_count)
 
+# apply the result of the count_names function to the row
 sdf = sdf.apply(count_names)
 
+# print the row with this inline function
 sdf = sdf.update(lambda row: print(row))
 
+# publish the updated row to the output topic
 sdf = sdf.to_topic(output_topic)
 
 if __name__ == "__main__":
