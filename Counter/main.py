@@ -17,11 +17,13 @@ def count_names(row: dict, state: State):
     name = row["name"]
 
     # check state, if the name is already there then retrieve the count
-    # s
+    # default to 0 if the name wasn't in state
     name_count = state.get(name, 0)
 
+    # add one to the name count
     name_count += 1
 
+    # store the new count in state
     state.set(name, name_count)
 
     pass
