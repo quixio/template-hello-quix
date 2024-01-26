@@ -26,8 +26,6 @@ def count_names(row: dict, state: State):
     # store the new count in state
     state.set(name, name_count)
 
-    pass
-
 sdf = sdf.apply(count_names)
 
 sdf = sdf.update(lambda row: print(row))
