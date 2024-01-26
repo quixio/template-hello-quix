@@ -10,7 +10,23 @@ output_topic = app.topic(os.environ["output"], value_serializer=QuixTimeseriesSe
 
 sdf = app.dataframe(input_topic)
 
-# Here put transformation logic.
+def count_names(row: dict, state: State):
+
+    # get the value from the name column for this row
+    # so we can see if it's in state
+    name = row["name"]
+
+    # check state, if the name is already there then retrieve the count
+    # s
+    name_count = state.get(name, 0)
+
+    name_count += 1
+
+    state.set(name, name_count)
+
+    pass
+
+sdf = sdf.apply(count_names)
 
 sdf = sdf.update(lambda row: print(row))
 
