@@ -21,7 +21,7 @@ deployments:
         description: Name of the output topic to write into
         required: true
         value: csv-data
-  - name: Counter
+  - name: Name counter
     application: name counter
     deploymentType: Service
     version: ad5df8883959f58d8a621c47cae21170d76f72ed
