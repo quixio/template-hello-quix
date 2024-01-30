@@ -1,4 +1,4 @@
-name: CSV data source
+name: csv data source
 language: python
 variables:
   - name: output
