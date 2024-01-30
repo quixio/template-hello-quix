@@ -9,7 +9,7 @@ deployments:
   - name: csv data source
     application: csv data source
     deploymentType: Service
-    version: 82aa82313fdc8361771d9bb4a0869080633d133b
+    version: ad5df8883959f58d8a621c47cae21170d76f72ed
     resources:
       cpu: 200
       memory: 500
@@ -24,7 +24,7 @@ deployments:
   - name: Counter
     application: name counter
     deploymentType: Service
-    version: 9a8942109263d36059329db91f088d687826dc31
+    version: ad5df8883959f58d8a621c47cae21170d76f72ed
     resources:
       cpu: 200
       memory: 500
@@ -44,7 +44,7 @@ deployments:
   - name: Console logger
     application: console logger
     deploymentType: Service
-    version: 2d79a86a23a67b0b58bc1be58b1f8e6a5dd6bad1
+    version: ad5df8883959f58d8a621c47cae21170d76f72ed
     resources:
       cpu: 200
       memory: 500
