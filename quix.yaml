@@ -6,7 +6,7 @@ metadata:
 
 # This section describes the Deployments of the data pipeline
 deployments:
-  - name: csv data source
+  - name: CSV data source
     application: csv data source
     deploymentType: Service
     version: ad5df8883959f58d8a621c47cae21170d76f72ed
