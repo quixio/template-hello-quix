@@ -61,11 +61,11 @@ services:
     depends_on:
       - redpanda
 
-  csv-source-data:
-    container_name: csv-source-data
+  csv-data-source:
+    container_name: csv-data-source
     restart: always
     build:
-      context: "./CSV data"
+      context: "./CSV data source"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - output=csv-data
@@ -79,7 +79,7 @@ services:
     container_name: name-counter
     restart: always
     build:
-      context: "./Counter"
+      context: "./Name Counter"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=csv-data
