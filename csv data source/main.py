@@ -10,7 +10,6 @@ import random
 import time
 import os
 
-
 # import our get_app function to help with building the app for local/Quix deployed code
 from app_factory import get_app
 
@@ -47,6 +46,7 @@ def read_csv_file(file_path: str):
     # Read the CSV file into a pandas.DataFrame
     print("CSV file loading.")
     df = pd.read_csv(file_path)
+
     print("File loaded.")
 
     # Get the number of rows in the dataFrame for printing out later
