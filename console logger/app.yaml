@@ -1,4 +1,4 @@
-name: console logger
+name: Console logger
 language: python
 variables:
   - name: input
