@@ -65,7 +65,7 @@ services:
     container_name: csv-data-source
     restart: always
     build:
-      context: "./CSV data source"
+      context: "./csv data source"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - output=csv-data
@@ -77,7 +77,7 @@ services:
     container_name: name-counter
     restart: always
     build:
-      context: "./Name counter"
+      context: "./name counter"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=csv-data
@@ -91,7 +91,7 @@ services:
     container_name: console-logger
     restart: always
     build:
-      context: "./Console logger"
+      context: "./console logger"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=counted-names
