@@ -65,12 +65,10 @@ services:
     container_name: csv-data-source
     restart: always
     build:
-      context: "./CSV data source"
+      context: "./csv data source"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - output=csv-data
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
       - use_local_kafka=true
     depends_on:
       - redpanda
@@ -79,27 +77,24 @@ services:
     container_name: name-counter
     restart: always
     build:
-      context: "./Name Counter"
+      context: "./name counter"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=csv-data
       - output=counted-names
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
+
       - use_local_kafka=true
     depends_on:
       - redpanda
 
-  destination:
-    container_name: destination
+  console-logger:
+    container_name: console-logger
     restart: always
     build:
-      context: "./Destination"
+      context: "./console logger"
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=counted-names
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
       - use_local_kafka=true
     depends_on:
       - redpanda

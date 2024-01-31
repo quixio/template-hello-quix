@@ -7,9 +7,9 @@ metadata:
 # This section describes the Deployments of the data pipeline
 deployments:
   - name: CSV data source
-    application: CSV data source
+    application: csv data source
     deploymentType: Service
-    version: 82aa82313fdc8361771d9bb4a0869080633d133b
+    version: d2bf6cba427f4477ff191e313f816ad77cdcb355
     resources:
       cpu: 200
       memory: 500
@@ -21,10 +21,10 @@ deployments:
         description: Name of the output topic to write into
         required: true
         value: csv-data
-  - name: Name Counter
-    application: Name Counter
+  - name: Name counter
+    application: name counter
     deploymentType: Service
-    version: 9a8942109263d36059329db91f088d687826dc31
+    version: d2bf6cba427f4477ff191e313f816ad77cdcb355
     resources:
       cpu: 200
       memory: 500
@@ -41,10 +41,10 @@ deployments:
         description: Name of the output topic to write to.
         required: false
         value: counted-names
-  - name: Destination
-    application: Destination
+  - name: Console logger
+    application: console logger
     deploymentType: Service
-    version: 2d79a86a23a67b0b58bc1be58b1f8e6a5dd6bad1
+    version: d2bf6cba427f4477ff191e313f816ad77cdcb355
     resources:
       cpu: 200
       memory: 500
