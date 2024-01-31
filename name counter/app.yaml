@@ -1,4 +1,4 @@
-name: Counter
+name: Name counter
 language: python
 variables:
   - name: input
