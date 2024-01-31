@@ -3,7 +3,7 @@ from quixstreams import Application
 from quixstreams.models.serializers.quix import JSONSerializer, SerializationContext
 
 # (see https://quix.io/docs/quix-streams/v2-0-latest/api-reference/quixstreams.html for more details)
-
+ 
 # Import additional modules as needed
 import pandas as pd
 import random

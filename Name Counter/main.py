@@ -1,15 +1,9 @@
 import os
-from quixstreams import State
+from quixstreams import Application, State
 from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
 
-# import our get_app function to help with building the app for local/Quix deployed code
-from app_factory import get_app
 
-# get the environment variable value or default to False
-USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
-
-# Create an Application.
-app = get_app(consumer_group="my-first-consumer-group", use_local_kafka=USE_LOCAL_KAFKA)
+app = Application.Quix("transformation-v1", auto_offset_reset="latest")
 
 input_topic = app.topic(os.environ["input"], value_deserializer=JSONDeserializer())
 output_topic = app.topic(os.environ["output"], value_serializer=JSONSerializer())
