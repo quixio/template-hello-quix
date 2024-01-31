@@ -69,8 +69,6 @@ services:
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - output=csv-data
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
       - use_local_kafka=true
     depends_on:
       - redpanda
@@ -84,8 +82,6 @@ services:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=csv-data
       - output=counted-names
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
       - use_local_kafka=true
     depends_on:
       - redpanda
@@ -98,8 +94,6 @@ services:
     environment:
       - KAFKA_BROKER_ADDRESS=redpanda:9092
       - input=counted-names
-      - Quix__Portal__Api=https://portal-api.platform.quix.io
-      - Quix__Sdk__Token=${QUIX_SDK_TOKEN}
       - use_local_kafka=true
     depends_on:
       - redpanda
