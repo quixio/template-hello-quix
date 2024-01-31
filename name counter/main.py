@@ -4,7 +4,7 @@ from quixstreams.models.serializers.quix import JSONDeserializer, JSONSerializer
 
 # import our get_app function to help with building the app for local/Quix deployed code
 from app_factory import get_app
-# hello quix
+
 # get the environment variable value or default to False
 USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
 
