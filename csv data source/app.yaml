@@ -21,6 +21,11 @@ variables:
     description: ''
     defaultValue: ''
     required: true
+  - name: INFLUXDB_MEASUREMENT_NAME
+    inputType: FreeText
+    description: ''
+    defaultValue: ''
+    required: false
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
