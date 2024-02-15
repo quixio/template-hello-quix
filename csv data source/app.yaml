@@ -16,6 +16,11 @@ variables:
     description: ''
     defaultValue: ''
     required: false
+  - name: INFLUXDB_HOST
+    inputType: FreeText
+    description: ''
+    defaultValue: ''
+    required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
