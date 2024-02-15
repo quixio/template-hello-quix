@@ -26,6 +26,11 @@ variables:
     description: ''
     defaultValue: ''
     required: false
+  - name: task_interval
+    inputType: FreeText
+    description: ''
+    defaultValue: 5m
+    required: false
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
