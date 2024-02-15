@@ -1,4 +1,4 @@
-name: Console logger
+name: InfluxDB V3 Sink
 language: python
 variables:
   - name: input
