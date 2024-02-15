@@ -14,7 +14,7 @@ variables:
   - name: INFLUXDB_ORG
     inputType: FreeText
     description: ''
-    defaultValue: ''
+    defaultValue: Quixtest
     required: false
   - name: INFLUXDB_HOST
     inputType: FreeText
