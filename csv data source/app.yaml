@@ -6,6 +6,11 @@ variables:
     description: Name of the output topic to write into
     defaultValue: influxv2-data
     required: true
+  - name: INFLUXDB_TOKEN
+    inputType: FreeText
+    description: ''
+    defaultValue: ''
+    required: false
 dockerfile: dockerfile
 runEntryPoint: main.py
 defaultFile: main.py
