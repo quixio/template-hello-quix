@@ -5,22 +5,7 @@ metadata:
   version: 1.0
 
 # This section describes the Deployments of the data pipeline
-deployments:
-  - name: Console logger
-    application: console logger
-    deploymentType: Service
-    version: 04d4e53f245598af72f747edb6408c8c8c30d62d
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    desiredStatus: Stopped
-    variables:
-      - name: input
-        inputType: InputTopic
-        description: Name of the input topic to listen to.
-        required: false
-        value: counted-names
+deployments: []
 
 # This section describes the Topics of the data pipeline
 topics:
