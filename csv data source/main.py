@@ -1,27 +1,15 @@
-# Import the Quix Streams modules for interacting with Kafka:
+# Importing necessary libraries and modules
 from quixstreams import Application
 from quixstreams.models.serializers.quix import JSONSerializer, SerializationContext
-
-# (see https://quix.io/docs/quix-streams/v2-0-latest/api-reference/quixstreams.html for more details)
-
-# Import additional modules as needed
-import pandas as pd
-import random
-import time
 import os
+import random
+import influxdb_client
+from time import sleep
+from datetime import datetime
+import pandas as pd
 
-# import our get_app function to help with building the app for local/Quix deployed code
-from app_factory import get_app
-
-# import the dotenv module to load environment variables from a file
-from dotenv import load_dotenv
-load_dotenv(override=False)
-
-# get the environment variable value or default to False
-USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
-
-# Create an Application.
-app = get_app(use_local_kafka=USE_LOCAL_KAFKA)
+# Create an Application
+app = Application.Quix(auto_create_topics=True)
 
 # Define a serializer for messages, using JSON Serializer for ease
 serializer = JSONSerializer()
@@ -30,83 +18,117 @@ serializer = JSONSerializer()
 topic_name = os.environ["output"]
 topic = app.topic(topic_name)
 
-# Get the directory of the current script
-script_dir = os.path.dirname(os.path.realpath(__file__))
-# Construct the path to the CSV file
-csv_file_path = os.path.join(script_dir, "demo-data.csv")
+client = influxdb_client.InfluxDBClient(token=os.environ["INFLUXDB_TOKEN"],
+                        org=os.environ["INFLUXDB_ORG"],
+                        url=os.environ['INFLUXDB_HOST'])
+query_api = client.query_api()
+
+measurement_name = os.environ.get("INFLUXDB_MEASUREMENT_NAME", os.environ["output"])
+
+# Global variable to control the main loop's execution
+run = True
+
+# Helper function to convert time intervals (like 1h, 2m) into seconds for easier processing.
+# This function is useful for determining the frequency of certain operations.
+def interval_to_seconds(interval):
+    if not interval:
+        raise ValueError("Invalid interval string")
+
+    unit = interval[-1].lower()
+    try:
+        value = int(interval[:-1])
+    except ValueError:
+        raise ValueError("Invalid interval format")
+
+    if unit == 's':
+        return value
+    elif unit == 'm':
+        return value * 60
+    elif unit == 'h':
+        return value * 3600
+    elif unit == 'd':
+        return value * 3600 * 24
+    elif unit == 'mo':
+        return value * 3600 * 24 * 30
+    elif unit == 'y':
+        return value * 3600 * 24 * 365
+    else:
+        raise ValueError(f"Unknown interval unit: {unit}")
 
 
-# this function loads the file and sends each row to the publisher
-def read_csv_file(file_path: str):
-    """
-    A function to read data from a CSV file in an endless manner.
-    It returns a generator with stream_id and rows
-    """
+interval = os.environ.get("task_interval", "5m")
+interval_seconds = interval_to_seconds(interval)
+bucket = os.environ["INFLUXDB_BUCKET"]
+measurement = os.environ['INFLUXDB_MEASUREMENT_NAME']
 
-    # Read the CSV file into a pandas.DataFrame
-    print("CSV file loading.")
-    df = pd.read_csv(file_path)
-
-    print("File loaded.")
-
-    # Get the number of rows in the dataFrame for printing out later
-    row_count = len(df)
-
-    # Generate a unique ID for this data stream.
-    # It will be used as a message key in Kafka
-    stream_id = f"CSV_DATA_{str(random.randint(1, 100)).zfill(3)}"
-
-    # Get the column headers as a list
-    headers = df.columns.tolist()
-
-    # Continuously loop over the data
+# Function to fetch data from InfluxDB and send it to Quix
+# It runs in a continuous loop, periodically fetching data based on the interval.
+def get_data():
+    # Run in a loop until the main thread is terminated |> range(start: -{interval})
     while True:
-        # Print a message to the console for each iteration
-        print(f"Publishing {row_count} rows.")
+        start = datetime.now().timestamp()
+        flux_query = f'''
+            from(bucket: "{bucket}")
+                |> range(start: -{interval})
+                |> filter(fn: (r) => r._measurement == "{measurement}")
+                |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+            '''
+        influx_df = query_api.query_data_frame(query=flux_query,org=os.environ['INFLUXDB_ORG'])
 
-        # Iterate over the rows and convert them to
-        for _, row in df.iterrows():
-            # Create a dictionary that includes both column headers and row values
-            row_data = {header: row[header] for header in headers}
+        # Convert Timestamp columns to ISO 8601 formatted strings to avoid serialization errors
+        datetime_cols = influx_df.select_dtypes(include=['datetime64[ns]', 'datetime64[ns, UTC]']).columns
+        for col in datetime_cols:
+            influx_df[col] = influx_df[col].dt.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
 
-            # add a new timestamp column with the current data and time
-            row_data["Timestamp"] = time.time_ns()
+        # If the query returns tables with different schemas, the result will be a list of dataframes.
+        if isinstance(influx_df, list):
+            for item in influx_df:
+                yield item
+                print("Published 1 row to Quix")
+        elif isinstance(influx_df, pd.DataFrame) and not influx_df.empty:
+            yield influx_df
+            print(f"Published {len(influx_df)} rows to Quix")
 
-            # Yield the stream ID and the row data
-            yield stream_id, row_data
-
-        print("All rows published")
-
-        # Wait a moment before outputting more data.
-        time.sleep(1)
-
+        # Wait for the next interval
+        wait_time = datetime.now().timestamp() - start + interval_seconds
+        if wait_time > 0:
+            sleep(wait_time)
+        else:
+            print(f"Warning: Query took longer than {interval} seconds. Skipping sleep.")
 
 def main():
     """
-    Read data from the CSV file and publish it to Kafka
+    Read data from the Query and publish it to Kafka
     """
 
     # Create a pre-configured Producer object.
     # Producer is already setup to use Quix brokers.
     # It will also ensure that the topics exist before producing to them if
-    # Application.Quix is initiliazed with "auto_create_topics=True".
+    # Application.Quix is initialized with "auto_create_topics=True".
     producer = app.get_producer()
 
     with producer:
-        # Iterate over the data from CSV file
-        for message_key, row_data in read_csv_file(file_path=csv_file_path):
-            # Serialize row value to bytes
-            serialized_value = serializer(
-                value=row_data, ctx=SerializationContext(topic=topic.name)
-            )
+    # Iterate over the data from query result
+        for df in get_data():
 
-            # publish the data to the topic
-            producer.produce(
-                topic=topic.name,
-                key=message_key,
-                value=serialized_value,
-            )
+            # Generate a unique message_key for each row
+            for index, row in df.iterrows():
+                message_key = f"INFLUX_DATA_{str(random.randint(1, 100)).zfill(3)}_{index}"
 
+                # Convert the row to a dictionary
+                row_data = row.to_dict()
+
+                # Serialize row value to bytes
+                serialized_value = serializer(
+                    value=row_data, ctx=SerializationContext(topic=topic.name)
+                )
+
+                # publish the data to the topic
+                producer.produce(
+                    topic=topic.name,
+                    key=message_key,
+                    value=serialized_value,
+                )
 
 if __name__ == "__main__":
     try:
