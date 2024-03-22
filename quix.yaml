@@ -9,7 +9,7 @@ deployments:
   - name: CSV data source
     application: csv data source
     deploymentType: Service
-    version: latest
+    version: f68a3a6b22f62256d602479065306fb8d085f84c
     resources:
       cpu: 200
       memory: 500
@@ -24,7 +24,7 @@ deployments:
   - name: Name counter
     application: name counter
     deploymentType: Service
-    version: latest
+    version: f68a3a6b22f62256d602479065306fb8d085f84c
     resources:
       cpu: 200
       memory: 500
@@ -73,3 +73,11 @@ topics:
       replicationFactor: {{topic_replication_factor}}
       retentionInMinutes: 1440
       retentionInBytes: 52428800
+  - name: changelog__consumer--csv-data--default
+    persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+      cleanupPolicy: Compact
