@@ -27,6 +27,7 @@ def get_app(consumer_group: Optional[str]="consumer", use_local_kafka: Optional[
             consumer_group=consumer_group,
             auto_offset_reset="earliest",
             auto_create_topics=True,  # Quix app has an option to auto create topics
+            use_changelog_topics=False
         )
     
     return app
