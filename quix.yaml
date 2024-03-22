@@ -62,14 +62,14 @@ topics:
   - name: counted-names
     persisted: false
     configuration:
-      partitions: {{topic_partitions}}
+      partitions: 1
       replicationFactor: {{topic_replication_factor}}
       retentionInMinutes: 1440
       retentionInBytes: 52428800
   - name: csv-data
     persisted: false
     configuration:
-      partitions: {{topic_partitions}}
+      partitions: 1
       replicationFactor: {{topic_replication_factor}}
       retentionInMinutes: 1440
       retentionInBytes: 52428800
