@@ -1,12 +1,7 @@
-# Import the Quix Streams modules for interacting with Kafka:
-from quixstreams import Application
-from quixstreams.models.serializers.quix import JSONSerializer, SerializationContext
-
-# (see https://quix.io/docs/quix-streams/v2-0-latest/api-reference/quixstreams.html for more details)
-
 # Import additional modules as needed
 import pandas as pd
 import random
+import json
 import time
 import os
 
@@ -22,9 +17,6 @@ USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
 
 # Create an Application.
 app = get_app(use_local_kafka=USE_LOCAL_KAFKA)
-
-# Define a serializer for messages, using JSON Serializer for ease
-serializer = JSONSerializer()
 
 # Define the topic using the "output" environment variable
 topic_name = os.environ["output"]
@@ -66,6 +58,9 @@ def read_csv_file(file_path: str):
 
         # Iterate over the rows and convert them to
         for _, row in df.iterrows():
+
+            time.sleep(.25) # wait a little before sending more data
+
             # Create a dictionary that includes both column headers and row values
             row_data = {header: row[header] for header in headers}
 
@@ -95,16 +90,12 @@ def main():
     with producer:
         # Iterate over the data from CSV file
         for message_key, row_data in read_csv_file(file_path=csv_file_path):
-            # Serialize row value to bytes
-            serialized_value = serializer(
-                value=row_data, ctx=SerializationContext(topic=topic.name)
-            )
-
+            json_data = json.dumps(row_data)
             # publish the data to the topic
             producer.produce(
                 topic=topic.name,
                 key=message_key,
-                value=serialized_value,
+                value=json_data,
             )
 
 

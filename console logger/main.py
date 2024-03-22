@@ -1,5 +1,4 @@
 import os
-from quixstreams.models.serializers.quix import JSONDeserializer
 
 # import our get_app function to help with building the app for local/Quix deployed code
 from app_factory import get_app
@@ -11,7 +10,7 @@ USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
 app = get_app(consumer_group="my-first-consumer-group", use_local_kafka=USE_LOCAL_KAFKA)
 
 # create the input topic object and use a JSON deserializer
-input_topic = app.topic(os.environ["input"], value_deserializer=JSONDeserializer())
+input_topic = app.topic(os.environ["input"])
 
 sdf = app.dataframe(input_topic)
 
