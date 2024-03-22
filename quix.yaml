@@ -44,7 +44,7 @@ deployments:
   - name: Console logger
     application: console logger
     deploymentType: Service
-    version: latest
+    version: 0a23c38e3812881ab353f47b3b056df057529830
     resources:
       cpu: 200
       memory: 500
