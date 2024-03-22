@@ -63,13 +63,13 @@ topics:
     persisted: false
     configuration:
       partitions: 1
-      replicationFactor: 2
+      replicationFactor: 1
       retentionInMinutes: 1440
       retentionInBytes: 52428800
   - name: csv-data
     persisted: false
     configuration:
-      partitions: 2
-      replicationFactor: 2
-      retentionInMinutes: 10080
+      partitions: 1
+      replicationFactor: 1
+      retentionInMinutes: 1440
       retentionInBytes: 52428800
