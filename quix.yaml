@@ -29,7 +29,7 @@ deployments:
       cpu: 200
       memory: 500
       replicas: 1
-    desiredStatus: Stopped
+    desiredStatus: Running
     variables:
       - name: input
         inputType: InputTopic
@@ -44,7 +44,7 @@ deployments:
   - name: Console logger
     application: console logger
     deploymentType: Service
-    version: 0a23c38e3812881ab353f47b3b056df057529830
+    version: f68a3a6b22f62256d602479065306fb8d085f84c
     resources:
       cpu: 200
       memory: 500
