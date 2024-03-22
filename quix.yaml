@@ -24,7 +24,7 @@ deployments:
   - name: Name counter
     application: name counter
     deploymentType: Service
-    version: latest
+    version: 0364beaa037434690a3918efe184c0edc0cfb16f
     resources:
       cpu: 200
       memory: 500
