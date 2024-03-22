@@ -58,6 +58,9 @@ def read_csv_file(file_path: str):
 
         # Iterate over the rows and convert them to
         for _, row in df.iterrows():
+
+            time.sleep(250) # wait a little before sending more data
+
             # Create a dictionary that includes both column headers and row values
             row_data = {header: row[header] for header in headers}
 
