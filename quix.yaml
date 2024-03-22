@@ -73,11 +73,3 @@ topics:
       replicationFactor: {{topic_replication_factor}}
       retentionInMinutes: 1440
       retentionInBytes: 52428800
-  - name: changelog__consumer--csv-data--default
-    persisted: false
-    configuration:
-      partitions: 1
-      replicationFactor: 3
-      retentionInMinutes: 1440
-      retentionInBytes: 52428800
-      cleanupPolicy: Compact
