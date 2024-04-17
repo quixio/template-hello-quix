@@ -33,7 +33,8 @@ def publish_to_destination(row: dict):
     print("This is one row of your data")
     print("Transform it here or publish it to an external data store")
     print(row)
-    print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~")
+    print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~", flush=True)
+
 
 sdf = sdf.apply(publish_to_destination)
 

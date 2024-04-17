@@ -58,9 +58,6 @@ def read_csv_file(file_path: str):
 
         # Iterate over the rows and convert them to
         for _, row in df.iterrows():
-
-            time.sleep(.25) # wait a little before sending more data
-
             # Create a dictionary that includes both column headers and row values
             row_data = {header: row[header] for header in headers}
 
@@ -73,7 +70,8 @@ def read_csv_file(file_path: str):
         print("All rows published")
 
         # Wait a moment before outputting more data.
-        time.sleep(1)
+        print("Sleeping before the next batch...", flush=True)
+        time.sleep(3)
 
 
 def main():
