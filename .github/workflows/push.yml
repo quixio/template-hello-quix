@@ -1,0 +1,23 @@
+name: docker-compose-actions-workflow
+on: push
+jobs:
+  test:
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build the stack
+        run: |
+          docker compose build
+      - name: Run the stack and check the output
+        run: |
+          docker compose up -d
+          echo "Checking expected output is produced"
+          sleep 10
+          CONSOLE_LOGGER_LOGS=$(docker compose logs console-logger -n 10)
+          docker compose down
+          echo "Console Logger output is:"
+          echo "$CONSOLE_LOGGER_LOGS"
+          SUCCESS_MARKER=$(echo "$CONSOLE_LOGGER_LOGS" | fgrep "This is one row of your data")
+          test -n "$SUCCESS_MARKER"
