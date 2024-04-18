@@ -14,7 +14,7 @@ deployments:
       cpu: 200
       memory: 500
       replicas: 1
-    desiredStatus: Running
+    desiredStatus: Stopped
     variables:
       - name: output
         inputType: OutputTopic
@@ -61,9 +61,36 @@ deployments:
 topics:
   - name: counted-names
     persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
   - name: csv-data
     persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 10080
+      retentionInBytes: 52428800
   - name: enriched-click-data-all-keys
     persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
   - name: visitors-last-15min
     persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
+  - name: numbers
+    persisted: false
+    configuration:
+      partitions: 2
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
