@@ -4,7 +4,7 @@ import os
 from app_factory import get_app
 
 # get the environment variable value or default to False
-USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
+USE_LOCAL_KAFKA = os.getenv("use_local_kafka", False)
 
 # Create an Application.
 app = get_app(consumer_group="my-first-consumer-group", use_local_kafka=USE_LOCAL_KAFKA)

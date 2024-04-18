@@ -9,8 +9,10 @@ from quixstreams import Application
 
 logger = logging.getLogger()
 
-def get_app(consumer_group: Optional[str]="consumer", use_local_kafka: Optional[bool] = False) -> Application:
 
+def get_app(
+    consumer_group: Optional[str] = "consumer", use_local_kafka: Optional[bool] = False
+) -> Application:
     if use_local_kafka:
         logger.info(f"Creating Quix app for local environment")
         app = Application(
@@ -20,14 +22,14 @@ def get_app(consumer_group: Optional[str]="consumer", use_local_kafka: Optional[
             consumer_extra_config={"allow.auto.create.topics": "true"},
             producer_extra_config={"allow.auto.create.topics": "true"},
         )
-    
+
     else:
         logger.info(f"Creating Quix app for Quix Platform")
         app = Application.Quix(
             consumer_group=consumer_group,
             auto_offset_reset="earliest",
             auto_create_topics=True,  # Quix app has an option to auto create topics
-            use_changelog_topics=False
+            use_changelog_topics=False,
         )
-    
+
     return app
