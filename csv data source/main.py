@@ -10,10 +10,11 @@ from app_factory import get_app
 
 # import the dotenv module to load environment variables from a file
 from dotenv import load_dotenv
+
 load_dotenv(override=False)
 
 # get the environment variable value or default to False
-USE_LOCAL_KAFKA=os.getenv("use_local_kafka", False)
+USE_LOCAL_KAFKA = os.getenv("use_local_kafka", False)
 
 # Create an Application.
 app = get_app(use_local_kafka=USE_LOCAL_KAFKA)
@@ -58,8 +59,7 @@ def read_csv_file(file_path: str):
 
         # Iterate over the rows and convert them to
         for _, row in df.iterrows():
-
-            time.sleep(.25) # wait a little before sending more data
+            time.sleep(0.25)  # wait a little before sending more data
 
             # Create a dictionary that includes both column headers and row values
             row_data = {header: row[header] for header in headers}
