@@ -80,3 +80,10 @@ topics:
       replicationFactor: 3
       retentionInMinutes: 1440
       retentionInBytes: 52428800
+  - name: visitors-last-15min
+    persisted: false
+    configuration:
+      partitions: 1
+      replicationFactor: 3
+      retentionInMinutes: 1440
+      retentionInBytes: 52428800
