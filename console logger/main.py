@@ -30,8 +30,8 @@ def publish_to_destination(row: dict):
     # write code to publish your data to any destination
     # use any Python library you like!
     print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~")
-    print("This is one row of your data")
-    print("Transform it here or publish it to an external data store")
+    print("This is one row of your data:")
+    print("(Transform it here or publish it to an external data store.)")
     print(row)
     print("-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~", flush=True)
 
