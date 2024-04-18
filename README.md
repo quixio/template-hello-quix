@@ -9,3 +9,9 @@ A real time data processing pipeline with these services:
  - Console logger - This destination service simply logs the data being recieved to the console. Adapt it to suit your needs.
 
 We have also included a `docker-compose.yml` file so you can run the whole pipeline locally, including the message broker.
+
+# Running Locally
+
+```sh
+docker compose up --build
+```
