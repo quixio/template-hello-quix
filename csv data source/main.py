@@ -4,20 +4,17 @@ import random
 import json
 import time
 import os
-
-# import our get_app function to help with building the app for local/Quix deployed code
-from app_factory import get_app
+from quixstreams import Application
 
 # import the dotenv module to load environment variables from a file
 from dotenv import load_dotenv
-
 load_dotenv(override=False)
 
-# get the environment variable value or default to False
-USE_LOCAL_KAFKA = os.getenv("use_local_kafka", False)
-
 # Create an Application.
-app = get_app(use_local_kafka=USE_LOCAL_KAFKA)
+app = Application(
+    broker_address=os.getenv("KAFKA_BROKER_ADDRESS"),
+    auto_create_topics=True,
+)
 
 # Define the topic using the "output" environment variable
 topic_name = os.environ["output"]

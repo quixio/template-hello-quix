@@ -1,19 +1,18 @@
 import os
-from quixstreams import State
-
-# import our get_app function to help with building the app for local/Quix deployed code
-from app_factory import get_app
+from quixstreams import Application, State
 
 # import the dotenv module to load environment variables from a file
 from dotenv import load_dotenv
-
 load_dotenv(override=False)
 
-# get the environment variable value or default to False
-USE_LOCAL_KAFKA = os.getenv("use_local_kafka", False)
-
 # Create an Application.
-app = get_app(use_local_kafka=USE_LOCAL_KAFKA)
+app = Application(
+    broker_address=os.getenv("KAFKA_BROKER_ADDRESS"),
+    consumer_group="name-counter-group",
+    auto_offset_reset="earliest",
+    auto_create_topics=True,
+    use_changelog_topics=False,
+)
 
 input_topic = app.topic(os.environ["input"])
 output_topic = app.topic(os.environ["output"])
