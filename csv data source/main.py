@@ -26,7 +26,7 @@ topic = app.topic(topic_name)
 # Get the directory of the current script
 script_dir = os.path.dirname(os.path.realpath(__file__))
 # Construct the path to the CSV file
-csv_file_path = os.path.join(script_dir, "demo-data.csv")
+csv_file_path = os.path.join(script_dir, "cnc_simulated_timeseries_data.csv")
 
 
 # this function loads the file and sends each row to the publisher
