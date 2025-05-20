@@ -20,7 +20,7 @@ deployments:
         inputType: OutputTopic
         description: Name of the output topic to write into
         required: true
-        value: csv-data
+        value: cnc-data
   - name: Name counter
     application: name counter
     version: latest
