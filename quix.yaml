@@ -34,7 +34,7 @@ deployments:
       - name: input
         inputType: InputTopic
         description: Name of the input topic to listen to.
-        value: counted-names
+        value: cnc-sim-data
 
 # This section describes the Topics of the data pipeline
 topics:
