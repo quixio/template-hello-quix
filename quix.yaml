@@ -20,7 +20,7 @@ deployments:
         inputType: OutputTopic
         description: Name of the output topic to write into
         required: true
-        value: cnc-data
+        value: cnc-sim-data
   - name: Console logger
     application: console logger
     version: latest
