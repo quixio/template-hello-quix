@@ -6,21 +6,6 @@ metadata:
 
 # This section describes the Deployments of the data pipeline
 deployments:
-  - name: CSV data source
-    application: csv data source
-    version: latest
-    deploymentType: Service
-    resources:
-      cpu: 200
-      memory: 500
-      replicas: 1
-    desiredStatus: Running
-    variables:
-      - name: output
-        inputType: OutputTopic
-        description: Name of the output topic to write into
-        required: true
-        value: cnc-sim-data
   - name: Console logger
     application: console logger
     version: latest
@@ -34,6 +19,21 @@ deployments:
       - name: input
         inputType: InputTopic
         description: Name of the input topic to listen to.
+        value: cnc-sim-data
+  - name: CNC data source
+    application: csv data source
+    version: latest
+    deploymentType: Service
+    resources:
+      cpu: 200
+      memory: 500
+      replicas: 1
+    desiredStatus: Running
+    variables:
+      - name: output
+        inputType: OutputTopic
+        description: Name of the output topic to write into
+        required: true
         value: cnc-sim-data
 
 # This section describes the Topics of the data pipeline
