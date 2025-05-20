@@ -47,7 +47,7 @@ def read_csv_file(file_path: str):
 
     # Generate a unique ID for this data stream.
     # It will be used as a message key in Kafka
-    stream_id = f"CSV_DATA_{str(random.randint(1, 100)).zfill(3)}"
+    stream_id = f"CNC_DATA_{str(random.randint(1, 100)).zfill(3)}"
 
     # Get the column headers as a list
     headers = df.columns.tolist()
