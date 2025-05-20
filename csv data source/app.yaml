@@ -3,8 +3,9 @@ language: python
 variables:
   - name: output
     inputType: OutputTopic
+    multiline: false
     description: Name of the output topic to write into
-    defaultValue: csv-data
+    defaultValue: cnc-data
     required: true
 dockerfile: dockerfile
 runEntryPoint: main.py
